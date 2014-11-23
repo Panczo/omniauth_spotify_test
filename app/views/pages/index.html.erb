@@ -1,0 +1,32 @@
+<h1>Listing pages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pages.each do |page| %>
+      <tr>
+        <td><%= page.title %></td>
+        <td><%= link_to 'Show', page %></td>
+        <td><%= link_to 'Edit', edit_page_path(page) %></td>
+        <td><%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<br>
+<% if user_signed_in? %>
+<p><%= current_user.name %></p>
+<p><%= current_user.email %></p>
+<p><%= link_to "Logout",  destroy_user_session_path, method: :delete %></p>
+<% else %>
+<%= link_to "Sign in with Spotify", user_omniauth_authorize_path(:spotify) %>
+<% end %>
+<%= link_to 'New Page', new_page_path %>
