@@ -22,10 +22,22 @@
 
 
 <br>
-<% if user_signed_in? %>
-<p><%= current_user.name %></p>
-<p><%= current_user.email %></p>
-<p><%= link_to "Logout",  destroy_user_session_path, method: :delete %></p>
+<% if current_user && user_signed_in? %>
+  <p><%= current_user.name %></p>
+  <p><%= current_user.email %></p>
+  <p><%= current_user.spotify_hash %></p>
+  <p><%= link_to "Logout",  destroy_user_session_path, method: :delete %></p>
+  <br>
+
+
+<h2>Twoje playlisty</h2>
+
+<% current_user.playlists.each do |p| %>
+  <p><%= p.name %></p>
+<% end %>
+
+
+
 <% else %>
 <%= link_to "Sign in with Spotify", user_omniauth_authorize_path(:spotify) %>
 <% end %>
